@@ -64,7 +64,10 @@ const Register = () => {
             style={styles.input}
           />
           <View style={styles.btnTengah}>
-            <TouchableOpacity style={styles.btn}>
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => router.push("Pages/login")}
+            >
               <Text style={styles.btnText}>Sign Up</Text>
             </TouchableOpacity>
             <View style={[styles.name, { margin: 20 }]}>

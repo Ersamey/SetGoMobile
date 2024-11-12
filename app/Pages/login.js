@@ -60,7 +60,7 @@ const Login = () => {
           <View style={styles.btnTengah}>
             <TouchableOpacity
               style={styles.btn}
-              onPress={() => router.push("Pages/siswa")}
+              onPress={() => router.push("Pages/Siswa/kelas")}
             >
               <Text style={styles.btnText}>Login</Text>
             </TouchableOpacity>
