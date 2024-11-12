@@ -3,39 +3,87 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   TouchableOpacity,
   Modal,
   TextInput,
   Button,
+  FlatList,
+  StatusBar,
 } from "react-native";
 import HeaderProfile from "../Layout/header";
 import { useRouter } from "expo-router";
+import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
 const Siswa = () => {
-  const [modalVisible, setModalVisible] = useState(false); // State for modal visibility
-  const [kodeKelas, setKodeKelas] = useState(""); // State for class code input
+  const [modalVisible, setModalVisible] = useState(false);
+  const [kodeKelas, setKodeKelas] = useState("");
   const router = useRouter();
+
+  const DATA = [
+    {
+      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+      title: "X RPL 1",
+      teacher: "Ersa Meilia",
+    },
+    {
+      id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+      title: "X RPL 2",
+      teacher: "Siti Nuraeni",
+    },
+    {
+      id: "58694a0f-3da1-471f-bd96-145571e29d72",
+      title: "X RPL 3",
+      teacher: "Yasmn Hafidah",
+    },
+    {
+      id: "58694a0f-3da1-471f-bd96-145571e29d73",
+      title: "X RPL 4",
+      teacher: "Utria Evaludini",
+    },
+    {
+      id: "58694a0f-3da1-471f-bd96-145571e29d74",
+      title: "X RPL 5",
+      teacher: "Hikmah Nurarifah",
+    },
+    {
+      id: "58694a0f-3da1-471f-bd96-145571e29d75",
+      title: "X RPL 6",
+      teacher: "Rizki Fauzi",
+    },
+  ];
+
+  const Item = ({ title, teacher, id }) => (
+    <TouchableOpacity
+      onPress={() => router.push(`/Pages/Siswa/detail?id=${id}`)}
+    >
+      <View style={styles.class}>
+        <Text style={styles.clssName}>{title}</Text>
+        <Text>{teacher}</Text>
+        <Text>Deskripsi Kelas</Text>
+      </View>
+    </TouchableOpacity>
+  );
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
-        <HeaderProfile />
-        <View>
-          <View style={styles.class}>
-            <Text style={styles.clssName}>Nama Kelas</Text>
-            <Text>Nama Guru</Text>
-            <Text>Deskripsi Kelas</Text>
-          </View>
-        </View>
-      </ScrollView>
+      <HeaderProfile />
+      <SafeAreaProvider>
+        <SafeAreaView style={styles.container}>
+          <FlatList
+            data={DATA}
+            renderItem={({ item }) => (
+              <Item title={item.title} teacher={item.teacher} id={item.id} />
+            )}
+            keyExtractor={(item) => item.id}
+          />
+        </SafeAreaView>
+      </SafeAreaProvider>
+
       <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
+        onRequestClose={() => setModalVisible(!modalVisible)}
       >
         <View style={styles.modalView}>
           <View style={styles.modalContent}>
@@ -44,21 +92,20 @@ const Siswa = () => {
               style={styles.input}
               placeholder="Kode Kelas"
               value={kodeKelas}
-              onChangeText={setKodeKelas} // Update the state when user types
+              onChangeText={setKodeKelas}
             />
             <View style={styles.modalButtons}>
               <Button
                 title="Cancel"
                 color="red"
-                onPress={() => setModalVisible(false)} // Close modal
+                onPress={() => setModalVisible(false)}
               />
               <Button
-                style={styles.btnJoin}
                 title="Join"
                 onPress={() => {
                   console.log("Kode kelas: " + kodeKelas);
-                  setModalVisible(false); // Close modal after submission
-                  setKodeKelas(""); // Clear input field
+                  setModalVisible(false);
+                  setKodeKelas("");
                 }}
               />
             </View>
@@ -67,7 +114,6 @@ const Siswa = () => {
       </Modal>
 
       <View style={styles.btnNew}>
-        {/* Button to trigger modal */}
         <TouchableOpacity
           style={styles.button}
           onPress={() => setModalVisible(true)}
@@ -82,7 +128,8 @@ const Siswa = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    marginTop: StatusBar.currentHeight || 0,
+    marginBottom: 100,
   },
   btnJoin: {
     color: "#661FF8",
@@ -121,7 +168,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.5)", // Dim background
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   modalContent: {
     width: 300,
