@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, Image } from "react-native";
 import { useRouter } from "expo-router";
 
 const Login = () => {
@@ -19,10 +11,7 @@ const Login = () => {
     <View>
       <ScrollView>
         <View style={styles.inputItems}>
-          <Image
-            source={require("../../assets/images/logo.png")}
-            style={{ width: 232, height: 85, alignSelf: "center" }}
-          />
+          <Image source={require("../../assets/images/logo.png")} style={{ width: 232, height: 85, alignSelf: "center" }} />
           <View style={styles.name}>
             <Text
               style={{
@@ -46,23 +35,14 @@ const Login = () => {
             </Text>
           </View>
           <Text style={styles.desc}>Please Login Here</Text>
-          <TextInput
-            placeholder="Username"
-            onChangeText={(text) => setUsername(text)}
-            style={styles.input}
-          />
-          <TextInput
-            placeholder="Password"
-            onChangeText={(text) => setPassword(text)}
-            secureTextEntry={true}
-            style={styles.input}
-          />
+          <TextInput placeholder="Username" onChangeText={(text) => setUsername(text)} style={styles.input} />
+          <TextInput placeholder="Password" onChangeText={(text) => setPassword(text)} secureTextEntry={true} style={styles.input} />
           <View style={styles.btnTengah}>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => router.push("Pages/Siswa/kelas")}
-            >
+            <TouchableOpacity style={styles.btn} onPress={() => router.push("Pages/Siswa/kelas")}>
               <Text style={styles.btnText}>Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.btn} onPress={() => router.push("Pages/guru/ListClass")}>
+              <Text style={styles.btnText}>Guru</Text>
             </TouchableOpacity>
             <Text style={{ color: "#661FF8" }}>Forgot Password?</Text>
             <View
@@ -78,10 +58,7 @@ const Login = () => {
             </View>
             <View style={styles.name}>
               <Text style={{ color: "#8C8C8C" }}>Don't have an account? </Text>
-              <Text
-                style={{ color: "#661FF8" }}
-                onPress={() => router.push("Pages/register")}
-              >
+              <Text style={{ color: "#661FF8" }} onPress={() => router.push("Pages/register")}>
                 Sign Up
               </Text>
             </View>
