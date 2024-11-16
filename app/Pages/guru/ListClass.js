@@ -1,5 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, FlatList, StatusBar, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  FlatList,
+  StatusBar,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { useRouter } from "expo-router";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -22,10 +31,14 @@ const ListKelas = () => {
   // Komponen item kelas
   const Item = ({ title, description, id }) => (
     <TouchableOpacity
-      onPress={() => router.push(`/Pages/Guru/kelasDetail?id=${id}`)} // Navigasi ke halaman detail kelas
+      onPress={() => router.push(`/Pages/Guru/Class?id=${id}`)} // Navigasi ke halaman detail kelas
     >
       <View style={styles.class}>
-        <Image source={require("../../../assets/images/Image.png")} style={styles.classImage} resizeMode="cover" />
+        <Image
+          source={require("../../../assets/images/Image.png")}
+          style={styles.classImage}
+          resizeMode="cover"
+        />
         <Text style={styles.className}>{title}</Text>
         <Text style={styles.classDescription}>{description}</Text>
       </View>
@@ -38,10 +51,23 @@ const ListKelas = () => {
         <SafeAreaProvider>
           <SafeAreaView style={styles.container}>
             {/* Daftar Kelas yang Dibuat oleh Guru */}
-            <FlatList data={DATA} renderItem={({ item }) => <Item title={item.title} description={item.description} id={item.id} />} keyExtractor={(item) => item.id} />
+            <FlatList
+              data={DATA}
+              renderItem={({ item }) => (
+                <Item
+                  title={item.title}
+                  description={item.description}
+                  id={item.id}
+                />
+              )}
+              keyExtractor={(item) => item.id}
+            />
             {/* Tombol untuk Menambahkan Kelas Baru */}
             <View style={styles.newClassButtonContainer}>
-              <TouchableOpacity style={styles.button} onPress={() => router.push("Pages/guru/CreateClass")}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => router.push("Pages/Guru/CreateClass")}
+              >
                 <Text style={styles.buttonText}>New Class</Text>
               </TouchableOpacity>
             </View>
