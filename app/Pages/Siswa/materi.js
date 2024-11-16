@@ -26,24 +26,21 @@ const Materi = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
-        <HeaderProfile />
-        <Text style={styles.clssName}>{DATA.title}</Text>
-        <View style={styles.class}>
-          <Image
-            source={require("../../../assets/images/Image.png")} // Assuming image is in the correct path
-            style={styles.classImage}
-          />
-          <Text style={styles.teacherName}>{DATA.teacher}</Text>
-          <Text style={styles.level}>{DATA.level}</Text>
-          <Text style={styles.description}>{DATA.description}</Text>
-        </View>
-      </ScrollView>
-
+      <HeaderProfile />
+      <Text style={styles.clssName}>{DATA.title}</Text>
+      <View style={styles.class}>
+        <Image
+          source={require("../../../assets/images/Image.png")} // Assuming image is in the correct path
+          style={styles.classImage}
+        />
+        <Text style={styles.teacherName}>{DATA.teacher}</Text>
+        <Text style={styles.level}>{DATA.level}</Text>
+        <Text style={styles.description}>{DATA.description}</Text>
+      </View>
       <View style={styles.btnNew}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => router.push("Pages/Siswa/quiz")}
+          onPress={() => router.push("Pages/Soal/pg")}
         >
           <Text style={styles.textBtn}>Kerjakan Latihan Soal</Text>
         </TouchableOpacity>
