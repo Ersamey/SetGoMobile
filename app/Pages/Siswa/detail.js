@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   FlatList,
   StatusBar,
   Image,
@@ -11,11 +10,12 @@ import {
 } from "react-native";
 import HeaderProfile from "../Layout/header";
 import { useRouter } from "expo-router";
-import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const DetailKelas = () => {
   const router = useRouter();
 
+  // Data untuk daftar kelas
   const DATA = [
     {
       id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
@@ -37,71 +37,105 @@ const DetailKelas = () => {
     },
   ];
 
+  // Komponen untuk item kelas
   const Item = ({ title, level, description, id }) => (
     <TouchableOpacity
+      style={styles.classContainer}
       onPress={() => router.push(`/Pages/Siswa/materi?id=${id}`)}
     >
-      <View style={styles.class}>
-        <Image
-          source={require("../../../assets/images/Image.png")} // Assuming image is in the correct path
-          style={styles.classImage}
-        />
-        <Text style={styles.clssName}>{title}</Text>
-        <Text>{level}</Text>
-        <Text>{description}</Text>
-      </View>
+      <Image
+        source={require("../../../assets/images/Image.png")} // Pastikan file ini ada
+        style={styles.classImage}
+        resizeMode="cover"
+      />
+      <Text style={styles.classTitle}>{title}</Text>
+      <Text style={styles.classLevel}>{level}</Text>
+      <Text style={styles.classDescription}>{description}</Text>
     </TouchableOpacity>
   );
 
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
-        <HeaderProfile />
-        <SafeAreaProvider>
-          <SafeAreaView style={styles.container}>
-            <FlatList
-              data={DATA}
-              renderItem={({ item }) => (
-                <Item
-                  title={item.title}
-                  level={item.level}
-                  description={item.description}
-                />
-              )}
-              keyExtractor={(item) => item.id}
-            />
-          </SafeAreaView>
-        </SafeAreaProvider>
-      </ScrollView>
-    </View>
+    <SafeAreaView style={styles.container}>
+      {/* Header untuk detail kelas */}
+      <HeaderProfile />
+
+      {/* Daftar materi kelas */}
+      <FlatList
+        data={DATA}
+        renderItem={({ item }) => (
+          <Item
+            id={item.id}
+            title={item.title}
+            level={item.level}
+            description={item.description}
+          />
+        )}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={{ paddingBottom: 100 }}
+      />
+
+      {/* Tombol untuk menambah materi */}
+      <TouchableOpacity
+        style={styles.btnAddMaterial}
+        onPress={() => router.push("/Pages/guru/Add")}
+        // onPress={() => router.push("/Pages/guru/Tambah")}
+      >
+        <Text style={styles.btnAddText}>Tambahkan Materi Baru</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 };
 
+// Gaya untuk komponen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#fff",
     marginTop: StatusBar.currentHeight || 0,
-    backgroundColor: "#fff", // Set background color for the whole container
   },
-  clssName: {
-    fontWeight: "bold",
-    color: "black",
-    marginTop: 10,
-    fontSize: 17,
-  },
-  class: {
-    backgroundColor: "lightblue",
-    padding: 10,
-    margin: 20,
-    borderRadius: 10,
-    height: 220,
-    justifyContent: "center", // Center content inside the class container
+  classContainer: {
+    backgroundColor: "#f1f1f1",
+    padding: 15,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    borderRadius: 12,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
   },
   classImage: {
-    width: 340,
-    height: 100,
-    alignSelf: "center",
-    borderRadius: 10, // Added rounded corners for the image
+    width: "100%",
+    height: 120,
+    borderRadius: 10,
+  },
+  classTitle: {
+    fontWeight: "bold",
+    fontSize: 18,
+    marginTop: 10,
+    color: "#333",
+  },
+  classLevel: {
+    fontSize: 14,
+    color: "#555",
+    marginVertical: 5,
+  },
+  classDescription: {
+    fontSize: 12,
+    color: "#666",
+  },
+  btnAddMaterial: {
+    backgroundColor: "#661FF8",
+    padding: 15,
+    borderRadius: 10,
+    marginHorizontal: 20,
+    alignItems: "center",
+    marginVertical: 10,
+  },
+  btnAddText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
 

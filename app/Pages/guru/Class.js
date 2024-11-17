@@ -32,7 +32,7 @@ export default function Class() {
 
       <TouchableOpacity
         style={styles.optionButton}
-        onPress={() => alert("Materi Pembelajaran")}
+        onPress={() => navigation.navigate("Pages/Siswa/detail", { className })}
       >
         <Text style={styles.optionText}>Materi Pembelajaran</Text>
         <Text style={styles.arrow}>›</Text>
