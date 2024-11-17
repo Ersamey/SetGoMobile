@@ -77,7 +77,7 @@ const DetailKelas = () => {
       {/* Tombol untuk menambah materi */}
       <TouchableOpacity
         style={styles.btnAddMaterial}
-        onPress={() => router.push("/Pages/guru/Add")}
+        onPress={() => router.push("/Pages/Guru/Add")}
         // onPress={() => router.push("/Pages/guru/Tambah")}
       >
         <Text style={styles.btnAddText}>Tambahkan Materi Baru</Text>
