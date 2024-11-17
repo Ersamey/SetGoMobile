@@ -8,7 +8,7 @@ export default function Class() {
   const [className, setClassName] = useState("");
 
   useEffect(() => {
-    // Set className dari parameter jika tersedia
+    // Tangkap className dari parameter
     if (route.params?.className) {
       setClassName(route.params.className);
     }
@@ -16,15 +16,24 @@ export default function Class() {
 
   return (
     <View style={styles.container}>
-      {/* Menampilkan nama kelas yang diterima dari parameter */}
-      <Text style={styles.title}>{className}</Text>
-
-      <TouchableOpacity style={styles.optionButton} onPress={() => navigation.navigate("Daftar siswa")}>
+      <Text style={styles.title}>
+        {className || "Nama Kelas Tidak Ditemukan"}
+      </Text>
+      {/* Tombol Navigasi */}
+      <TouchableOpacity
+        style={styles.optionButton}
+        onPress={() =>
+          navigation.navigate("Pages/Guru/ListSiswa", { className })
+        }
+      >
         <Text style={styles.optionText}>Daftar Siswa</Text>
         <Text style={styles.arrow}>›</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.optionButton} onPress={() => alert("Materi Pembelajaran")}>
+      <TouchableOpacity
+        style={styles.optionButton}
+        onPress={() => alert("Materi Pembelajaran")}
+      >
         <Text style={styles.optionText}>Materi Pembelajaran</Text>
         <Text style={styles.arrow}>›</Text>
       </TouchableOpacity>

@@ -18,6 +18,7 @@ export default function RootLayout() {
         <Stack.Screen name="Pages/guru/ListClass" />
         <Stack.Screen name="Pages/guru/CreateClass" />
         <Stack.Screen name="Pages/guru/Class" />
+        <Stack.Screen name="Pages/guru/ListSiswa" />
 
         <Stack.Screen name="Pages/Soal/pg" />
         <Stack.Screen name="Pages/Soal/essay" />

@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   FlatList,
   StatusBar,
   Image,
@@ -31,7 +30,12 @@ const ListKelas = () => {
   // Komponen item kelas
   const Item = ({ title, description, id }) => (
     <TouchableOpacity
-      onPress={() => router.push(`/Pages/Guru/Class?id=${id}`)} // Navigasi ke halaman detail kelas
+      onPress={() =>
+        router.push({
+          pathname: "/Pages/Guru/Class",
+          params: { className: title, id },
+        })
+      }
     >
       <View style={styles.class}>
         <Image
@@ -47,33 +51,31 @@ const ListKelas = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
-        <SafeAreaProvider>
-          <SafeAreaView style={styles.container}>
-            {/* Daftar Kelas yang Dibuat oleh Guru */}
-            <FlatList
-              data={DATA}
-              renderItem={({ item }) => (
-                <Item
-                  title={item.title}
-                  description={item.description}
-                  id={item.id}
-                />
-              )}
-              keyExtractor={(item) => item.id}
-            />
-            {/* Tombol untuk Menambahkan Kelas Baru */}
-            <View style={styles.newClassButtonContainer}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => router.push("Pages/Guru/CreateClass")}
-              >
-                <Text style={styles.buttonText}>New Class</Text>
-              </TouchableOpacity>
-            </View>
-          </SafeAreaView>
-        </SafeAreaProvider>
-      </ScrollView>
+      <SafeAreaProvider contentContainerStyle={{ paddingBottom: 100 }}>
+        <SafeAreaView style={styles.container}>
+          {/* Daftar Kelas yang Dibuat oleh Guru */}
+          <FlatList
+            data={DATA}
+            renderItem={({ item }) => (
+              <Item
+                title={item.title}
+                description={item.description}
+                id={item.id}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+          />
+          {/* Tombol untuk Menambahkan Kelas Baru */}
+          <View style={styles.newClassButtonContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => router.push("Pages/Guru/CreateClass")}
+            >
+              <Text style={styles.buttonText}>New Class</Text>
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
+      </SafeAreaProvider>
     </View>
   );
 };
