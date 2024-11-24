@@ -7,13 +7,55 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Alert,
 } from "react-native";
 import { useRouter } from "expo-router";
+import Axios from "axios";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const BASE_URL = "http://192.168.62.186:8080"; // IP server backend
+
+  const login = async () => {
+    if (!username.trim() || !password.trim()) {
+      Alert.alert("Error", "Username and Password are required!");
+      return;
+    }
+
+    try {
+      const response = await Axios.post(`${BASE_URL}/masuk`, {
+        username,
+        password,
+      });
+
+      // Validasi respons dari backend
+      if (response.status === 200) {
+        const data = response.data;
+
+        if (data.success) {
+          Alert.alert("Success", data.message);
+
+          // Redirect berdasarkan role user
+          if (data.role === "guru") {
+            router.push("Pages/Guru/ListClass");
+          } else if (data.role === "siswa") {
+            router.push("Pages/Siswa/kelas");
+          } else {
+            Alert.alert("Error", "Peran tidak dikenali!");
+          }
+        } else {
+          Alert.alert("Error", data.message);
+        }
+      } else {
+        Alert.alert("Error", `Server Error: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Login Error:", error);
+      Alert.alert("Error", "Terjadi kesalahan saat login. Coba lagi nanti.");
+    }
+  };
 
   return (
     <View>
@@ -48,27 +90,20 @@ const Login = () => {
           <Text style={styles.desc}>Please Login Here</Text>
           <TextInput
             placeholder="Username"
+            value={username}
             onChangeText={(text) => setUsername(text)}
             style={styles.input}
           />
           <TextInput
             placeholder="Password"
+            value={password}
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={true}
             style={styles.input}
           />
           <View style={styles.btnTengah}>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => router.push("Pages/Siswa/kelas")}
-            >
+            <TouchableOpacity style={styles.btn} onPress={login}>
               <Text style={styles.btnText}>Login</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => router.push("Pages/Guru/ListClass")}
-            >
-              <Text style={styles.btnText}>Guru</Text>
             </TouchableOpacity>
             <Text style={{ color: "#661FF8" }}>Forgot Password?</Text>
             <View

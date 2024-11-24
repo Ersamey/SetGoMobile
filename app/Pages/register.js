@@ -7,14 +7,44 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Alert,
 } from "react-native";
 import { useRouter } from "expo-router";
+import Axios from "axios";
 
 const Register = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter(); // Tambahkan ini untuk menggunakan router
+  const role = "siswa"; // Role default diatur sebagai 'siswa'
+
+  const router = useRouter();
+
+  const handleRegister = async () => {
+    if (!username || !password) {
+      Alert.alert("Error", "All fields are required!");
+      return;
+    }
+
+    try {
+      const response = await Axios.post("http://192.168.62.186:8080/login", {
+        username,
+        password,
+        role,
+      });
+
+      if (response.status === 201) {
+        Alert.alert("Success", "Registration successful!", [
+          { text: "OK", onPress: () => router.push("Pages/login") },
+        ]);
+      }
+    } catch (error) {
+      console.error("Error:", error.response || error.message);
+      Alert.alert(
+        "Error",
+        error.response?.data?.message || "Failed to register. Please try again."
+      );
+    }
+  };
 
   return (
     <View>
@@ -48,26 +78,20 @@ const Register = () => {
           </View>
           <Text style={styles.desc}>Please Register Here</Text>
           <TextInput
-            placeholder="Full Name"
-            onChangeText={(text) => setName(text)}
-            style={styles.input}
-          />
-          <TextInput
-            placeholder="Email"
-            onChangeText={(text) => setEmail(text)}
+            placeholder="Username"
+            value={username}
+            onChangeText={(text) => setUsername(text)}
             style={styles.input}
           />
           <TextInput
             placeholder="Password"
+            value={password}
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={true}
             style={styles.input}
           />
           <View style={styles.btnTengah}>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => router.push("Pages/login")}
-            >
+            <TouchableOpacity style={styles.btn} onPress={handleRegister}>
               <Text style={styles.btnText}>Sign Up</Text>
             </TouchableOpacity>
             <View style={[styles.name, { margin: 20 }]}>
