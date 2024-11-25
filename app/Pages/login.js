@@ -30,29 +30,29 @@ const Login = () => {
         password,
       });
 
-      // Validasi respons dari backend
-      if (response.status === 200) {
-        const data = response.data;
+      // Log respons untuk debugging
+      console.log("Response Data:", response.data);
 
-        if (data.success) {
-          Alert.alert("Success", data.message);
+      const { success, message, data } = response.data;
 
-          // Redirect berdasarkan role user
-          if (data.role === "guru") {
-            router.push("Pages/Guru/ListClass");
-          } else if (data.role === "siswa") {
-            router.push("Pages/Siswa/kelas");
-          } else {
-            Alert.alert("Error", "Peran tidak dikenali!");
-          }
+      if (success) {
+        Alert.alert("Success", message);
+
+        // Redirect berdasarkan role user
+        if (data.role === "guru") {
+          router.push("/Pages/Guru/ListClass");
+        } else if (data.role === "siswa") {
+          router.push("/Pages/Siswa/kelas");
         } else {
-          Alert.alert("Error", data.message);
+          Alert.alert("Error", "Role tidak dikenali!");
         }
       } else {
-        Alert.alert("Error", `Server Error: ${response.status}`);
+        Alert.alert("Error", message);
       }
     } catch (error) {
       console.error("Login Error:", error);
+
+      // Tangani kesalahan lebih spesifik jika ada
       Alert.alert("Error", "Terjadi kesalahan saat login. Coba lagi nanti.");
     }
   };
