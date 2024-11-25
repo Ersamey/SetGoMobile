@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Alert,
 } from "react-native";
 import { useRouter } from "expo-router";
 
@@ -15,6 +16,35 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter(); // Tambahkan ini untuk menggunakan router
+
+  const handleRegister = async () => {
+    if (!name || !email || !password) {
+      Alert("Error", "Semua field harus diisi");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost/SetGoMobile/Backend/api.php?op=create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `username=${name}&email=${email}&password=${password}`,
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.data.result === "Berhasil Melakukan Registrasi") {
+        Alert.alert("Success", "Registrasi berhasil!");
+        router.push("Pages/login"); // Pindah ke halaman login
+      } else {
+        Alert.alert("Error", result.data.result || "Terjadi kesalahan pada server");
+      }
+    } catch (error) {
+      Alert.alert("Error", "Gagal terhubung ke server");
+      console.error(error);
+    }
+  };
 
   return (
     <View>
@@ -49,16 +79,19 @@ const Register = () => {
           <Text style={styles.desc}>Please Register Here</Text>
           <TextInput
             placeholder="Full Name"
+            values={name}
             onChangeText={(text) => setName(text)}
             style={styles.input}
           />
           <TextInput
             placeholder="Email"
+            values={email}
             onChangeText={(text) => setEmail(text)}
             style={styles.input}
           />
           <TextInput
             placeholder="Password"
+            values={password}
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={true}
             style={styles.input}
@@ -66,7 +99,7 @@ const Register = () => {
           <View style={styles.btnTengah}>
             <TouchableOpacity
               style={styles.btn}
-              onPress={() => router.push("Pages/login")}
+              onPress={handleRegister}
             >
               <Text style={styles.btnText}>Sign Up</Text>
             </TouchableOpacity>
