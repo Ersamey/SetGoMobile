@@ -25,31 +25,31 @@ const Siswa = () => {
       title: "X RPL 1",
       teacher: "Ersa Meilia",
     },
-    {
-      id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-      title: "X RPL 2",
-      teacher: "Siti Nuraeni",
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
-      title: "X RPL 3",
-      teacher: "Yasmn Hafidah",
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d73",
-      title: "X RPL 4",
-      teacher: "Utria Evaludini",
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d74",
-      title: "X RPL 5",
-      teacher: "Hikmah Nurarifah",
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d75",
-      title: "X RPL 6",
-      teacher: "Rizki Fauzi",
-    },
+    // {
+    //   id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+    //   title: "X RPL 2",
+    //   teacher: "Siti Nuraeni",
+    // },
+    // {
+    //   id: "58694a0f-3da1-471f-bd96-145571e29d72",
+    //   title: "X RPL 3",
+    //   teacher: "Yasmn Hafidah",
+    // },
+    // {
+    //   id: "58694a0f-3da1-471f-bd96-145571e29d73",
+    //   title: "X RPL 4",
+    //   teacher: "Utria Evaludini",
+    // },
+    // {
+    //   id: "58694a0f-3da1-471f-bd96-145571e29d74",
+    //   title: "X RPL 5",
+    //   teacher: "Hikmah Nurarifah",
+    // },
+    // {
+    //   id: "58694a0f-3da1-471f-bd96-145571e29d75",
+    //   title: "X RPL 6",
+    //   teacher: "Rizki Fauzi",
+    // },
   ];
 
   const Item = ({ title, teacher, id }) => (
