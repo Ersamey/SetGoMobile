@@ -18,22 +18,28 @@ const DetailKelas = () => {
   // Data untuk daftar kelas
   const DATA = [
     {
-      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-      title: "Materi 1",
+      id: "1",
+      title: "Pengantar",
       level: "Level 1",
-      description: "Deskripsi Materi 1 lorem ipsum dolor sit amet",
+      description: "Materi dasar pengenalan gerbang logika dalam bentuk himpuna",
     },
     {
-      id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-      title: "Materi 2",
+      id: "2",
+      title: "AND, OR, NOT ",
       level: "Level 2",
-      description: "Deskripsi Materi 2 lorem ipsum dolor sit amet",
+      description: "membandingkan  part 1",
     },
     {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
-      title: "Materi 3",
+      id: "3",
+      title: "NAND, XOR, NOR, X-NOR",
       level: "Level 3",
-      description: "Deskripsi Materi 3 lorem ipsum dolor sit amet",
+      description: "membandingkan gerbang logika part 2",
+    },
+    {
+      id: "4",
+      title: "Hubungan logika dan himpunan",
+      level: "Level 3",
+      description: "memodelkan persoalan",
     },
   ];
 

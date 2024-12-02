@@ -13,6 +13,10 @@ import HeaderProfile from "../Layout/header";
 import { useRouter } from "expo-router";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
+import axios from "axios"; // Import axios
+
+const BASE_URL = "http://192.168.215.151:8080";
+
 const Esai = () => {
   const router = useRouter();
 
@@ -28,21 +32,52 @@ const Esai = () => {
     {
       id: "2",
       gambar: require("../../../assets/images/Image.png"),
-      Soal: "Deskripsi soal esai lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet.",
-      jawaban: "i love coding", // Jawaban benar
+      Soal: "Jelaskan Definisi operasi himpunan",
+      jawaban: "kumpulan objek atau benda yang kemudian dapat didefinisikan dengan jelas", // Jawaban benar
+      is_true: true, // Status jawaban benar
     },
   ];
 
   const [userAnswer, setUserAnswer] = useState(""); // Menyimpan jawaban user
   const [isSubmitted, setIsSubmitted] = useState(false); // Status apakah jawaban sudah disubmit
-  const [isCorrect, setIsCorrect] = useState(null); // Menyimpan status jawaban benar atau salah
-
-  const handleSubmit = () => {
+  const [isCorrect, setIsCorrect] = useState(null);
+  
+  const handleSubmit = async () => {
     // Cek apakah jawaban benar
     const correct =
       userAnswer.trim().toLowerCase() === soal[0].jawaban.toLowerCase();
     setIsCorrect(correct);
     setIsSubmitted(true); // Set status menjadi sudah disubmit
+
+    // Data yang akan dikirim ke server
+    const data = {
+      id_siswa: "123", // Ganti dengan ID siswa dari login atau state global
+      id_latihanSoal: soal[0].id,
+      pilihan_siswa: userAnswer.trim(),
+      is_true: soal[0].is_true, // Jawaban benar
+    };
+
+    try {
+      // Mengirim data ke server menggunakan Axios
+      const response = await axios.post(`${BASE_URL}/api/LatihanSoal/submitJawaban`, data, {
+        headers: {
+          "Content-Type": "application/json", // Memberitahukan server bahwa body adalah JSON
+        },
+      });
+
+      // Menangani response dari server
+      if (response.status === 200) {
+        // Jika pengiriman berhasil, beri umpan balik kepada user
+        Alert.alert("Success", "Jawaban berhasil disubmit!");
+      } else {
+        // Jika pengiriman gagal, beri umpan balik error
+        Alert.alert("Error", "Gagal mengirim jawaban. Coba lagi.");
+      }
+    } catch (error) {
+      // Jika terjadi error dalam proses pengiriman, tampilkan alert
+      Alert.alert("Error", "Tidak dapat terhubung ke server.");
+      console.error(error); // Logging error di console untuk debugging
+    }
   };
 
   return (
@@ -208,4 +243,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Esai;
+export default Esai;  

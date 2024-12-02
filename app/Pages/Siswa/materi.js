@@ -16,12 +16,33 @@ const Materi = () => {
   const router = useRouter();
 
   const DATA = {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "Materi 1",
+    id: "1",
+    title: "Pengantar",
     teacher: "Ersa Meilia",
     level: "Level 1",
     description:
-      "Deskripsi Materi 1 lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
+      "Materi dasar pengenalan gerbang logika dalam bentuk himpunan",
+
+      id: "1",
+      title: "AND, OR, NOT",
+      teacher: "Ersa Meilia",
+      level: "Level 2",
+      description:
+        "Materi gerbang logika dasar",
+
+        id: "1",
+        title: "NAND, XOR, NOR,X-NOR",
+        teacher: "Ersa Meilia",
+        level: "Level 3",
+        description:
+          "Materi gerbang logika part 2",
+
+          id: "1",
+          title: "HUBUNGAN LOGIKA DAN HIMPUNAN ",
+          teacher: "Ersa Meilia",
+          level: "Level 4",
+          description:
+            "memodelkan persoalan logika",
   };
 
   return (
