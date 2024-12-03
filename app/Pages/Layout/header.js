@@ -10,7 +10,7 @@ import {
 import Axios from "axios";
 import images from "../imageMapping.js"; // Import file imageMapping.js
 
-const BASE_URL = "http://192.168.148.186:8080";
+const BASE_URL = "http://192.168.215.151:8080";
 
 const HeaderProfile = () => {
   const [user, setUser] = useState(null); // State untuk menyimpan data user

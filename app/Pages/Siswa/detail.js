@@ -19,41 +19,56 @@ const DetailKelas = () => {
   const DATA = [
     {
       id: "1",
-      title: "Pengantar",
+      title: "Menganalisis Gerbang Logika dalam Bentuk Himpunan ",
       level: "Level 1",
-      description: "Materi dasar pengenalan gerbang logika dalam bentuk himpuna",
+      description: "Gerbang logika adalah blok dasar dalam elektronika digital yang mengoperasikan satu atau lebih input biner dan menghasilkan output biner. Ketika gerbang logika dianalisis dalam bentuk himpunan, kita memodelkan operasi logika sebagai operasi pada himpunan.",
+      thumbnail: "https://img.youtube.com/vi/krAvJ6TidZM/0.jpg",
     },
     {
       id: "2",
-      title: "AND, OR, NOT ",
+      title: "Membandingkan Beberapa Himpunan yang Memodelkan Suatu Operasi Logika",
       level: "Level 2",
-      description: "membandingkan  part 1",
+      description: "Dalam konteks gerbang logika, himpunan dapat digunakan untuk memodelkan dan memahami operasi logika dengan cara yang lebih visual dan matematika. Ketika kita membandingkan beberapa himpunan yang memodelkan suatu operasi logika, kita mengamati bagaimana elemen dalam himpunan-himpunan tersebut berinteraksi berdasarkan aturan operasi logika yang diterapkan.",
+      thumbnail: "https://img.youtube.com/vi/zyoxrvnjLi8/0.jpg",
     },
     {
       id: "3",
-      title: "NAND, XOR, NOR, X-NOR",
+      title: "Membandingkan Beberapa Himpunan yang Memodelkan Suatu Operasi Logika (Lanjutan)",
       level: "Level 3",
-      description: "membandingkan gerbang logika part 2",
+      description: "Membandingkan beberapa himpunan yang memodelkan operasi logika melibatkan analisis bagaimana elemen-elemen dari berbagai himpunan berinteraksi berdasarkan aturan logika tertentu. ",
+      thumbnail: "https://img.youtube.com/vi/7BznBgNH75I/0.jpg",
     },
     {
       id: "4",
-      title: "Hubungan logika dan himpunan",
-      level: "Level 3",
-      description: "memodelkan persoalan",
+      title: "Membuat Himpunan untuk Memodelkan Persoalan Logika",
+      level: "Level 4",
+      description: "Membuat himpunan untuk memodelkan persoalan logika melibatkan representasi elemen-elemen dan operasi logika dalam bentuk himpunan matematika.",
+      thumbnail: "https://img.youtube.com/vi/MLma4vKwcpI/0.jpg",
     },
   ];
 
   // Komponen untuk item kelas
-  const Item = ({ title, level, description, id }) => (
+  const Item = ({ title, level, description, thumbnail, id }) => (
+
     <TouchableOpacity
       style={styles.classContainer}
-      onPress={() => router.push(`/Pages/Siswa/materi?id=${id}`)}
+      onPress={() => {
+        if (id === "1") {
+          router.push("/Pages/Siswa/materi"); // Arahkan langsung ke materi2.js
+        } else if (id === "2") {
+          router.push("/Pages/Siswa/materi2"); 
+        } else if (id === "3"){
+          router.push("/Pages/Siswa/materi3");
+        }else if (id === "4"){
+          router.push("/Pages/Siswa/materi4");
+        }
+      }}
     >
-      <Image
-        source={require("../../../assets/images/Image.png")} // Pastikan file ini ada
-        style={styles.classImage}
-        resizeMode="cover"
-      />
+     <Image
+          source={{ uri: thumbnail }}
+          style={styles.classImage}
+          resizeMode="cover"
+        />
       <Text style={styles.classTitle}>{title}</Text>
       <Text style={styles.classLevel}>{level}</Text>
       <Text style={styles.classDescription}>{description}</Text>
@@ -74,6 +89,7 @@ const DetailKelas = () => {
             title={item.title}
             level={item.level}
             description={item.description}
+            thumbnail={item.thumbnail}
           />
         )}
         keyExtractor={(item) => item.id}
@@ -81,13 +97,7 @@ const DetailKelas = () => {
       />
 
       {/* Tombol untuk menambah materi */}
-      <TouchableOpacity
-        style={styles.btnAddMaterial}
-        onPress={() => router.push("/Pages/Guru/Add")}
-        // onPress={() => router.push("/Pages/guru/Tambah")}
-      >
-        <Text style={styles.btnAddText}>Tambahkan Materi Baru</Text>
-      </TouchableOpacity>
+    
     </SafeAreaView>
   );
 };

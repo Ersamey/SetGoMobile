@@ -19,7 +19,7 @@ const PilihanGanda = () => {
 
   const materi = [
     {
-      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+      id: "1",
       title: "Materi 1",
       level: "Level 1",
     },
@@ -28,13 +28,12 @@ const PilihanGanda = () => {
   const soal = [
     {
       id: "1",
-      gambar: require("../../../assets/images/Image.png"),
-      Soal: "Deskripsi soal 1 pilihan ganda lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet.",
+      Soal: "Apa itu operasi himpunan?",
       pilihan: [
-        { id: "a", text: "AND", correct: true },
-        { id: "b", text: "OR", correct: false },
-        { id: "c", text: "NOT", correct: false },
-        { id: "d", text: "XOR", correct: false },
+        { id: "a", text: "Komponen yang membentuk sistem elektronika digital", correct: false },
+        { id: "b", text: "Proses penyusunan langkah-langkah algoritma", correct: false },
+        { id: "c", text: "Sekumpulan objek atau benda yang bisa didefinisikan dengan jelas", correct: true },
+        { id: "d", text: "Sistem yang digunakan untuk mengolah data", correct: false },
       ],
     },
   ];
@@ -58,7 +57,7 @@ const PilihanGanda = () => {
 
   const handleNext = () => {
     // Aksi untuk tombol 'Selanjutnya'
-    router.push("Pages/Soal/essay");
+    router.push("Pages/Soal/pg2");
   };
 
   return (
