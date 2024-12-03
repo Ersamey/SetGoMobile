@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import HeaderProfile from "../Layout/header";
 
 const ListKelas = () => {
   const router = useRouter();
@@ -51,6 +52,7 @@ const ListKelas = () => {
 
   return (
     <View style={styles.container}>
+      <HeaderProfile />
       <SafeAreaProvider contentContainerStyle={{ paddingBottom: 100 }}>
         <SafeAreaView style={styles.container}>
           {/* Daftar Kelas yang Dibuat oleh Guru */}

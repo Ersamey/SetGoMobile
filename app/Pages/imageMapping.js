@@ -4,6 +4,7 @@ const images = {
   "Image.png": require("../../assets/images/Image.png"),
   "logo.png": require("../../assets/images/logo.png"),
   "eni.jpg": require("../../assets/images/eni.jpg"),
+  "agus.jpg": require("../../assets/images/agus.jpg"),
 };
 
 export default images;
