@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, Dimensions
 import { LineChart, ProgressChart } from "react-native-chart-kit";
 import { useRouter } from "expo-router"; // Import useRouter dari expo-router
 import BottomNavbar from '../Layout/BottomNavbar';
+import HeaderProfile from "../Layout/header"; // Import HeaderProfile
 
 const screenWidth = Dimensions.get("window").width; // Lebar layar
 const screenHeight = Dimensions.get("window").height; // Tinggi layar
@@ -31,16 +32,9 @@ export default function App() {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent} style={styles.scrollView}>
-        {/* Outer box untuk profil */}
-        <View style={styles.profileBox}>
-          <Image
-            source={require("../../../assets/images/ecamey.jpg")} // Ganti dengan image lokal sesuai path Anda
-            style={styles.profileImage}
-          />
-          <View style={styles.profileTextContainer}>
-            <Text style={styles.profileName}>Ersa Meilia</Text>
-            <Text style={styles.profileStatus}>+1600 Points</Text>
-          </View>
+        {/* HeaderProfile diubah menjadi full-width dan fixed at the top */}
+        <View style={styles.headerContainer}>
+          <HeaderProfile />
         </View>
 
         {/* Progress Line Chart Container */}
@@ -48,10 +42,10 @@ export default function App() {
           <Text style={styles.chartTitle}>Progress</Text>
           <LineChart
             data={{
-              labels: ["Matematika", "Fisika", "Kimia", "Biologi", "Informatika"],
+              labels: ["Materi 1", "Materi 2", "Materi 3", "Materi 4"],
               datasets: [
                 {
-                  data: [75, 80, 65, 90, 85], // Data untuk mata pelajaran
+                  data: [75, 80, 65, 90], // Data untuk mata pelajaran
                   color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // Warna garis
                   strokeWidth: 2, // Lebar garis
                 },
@@ -124,19 +118,11 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fff" },
   scrollView: { flex: 1, backgroundColor: "#fff" },
   scrollViewContent: { paddingVertical: 30, paddingHorizontal: 15, alignItems: 'center', paddingBottom: 100 }, // Tambahkan paddingBottom di sini
-  profileBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "90%",
-    backgroundColor: "#f6f7fb",
-    borderRadius: 10,
-    padding: 20,
-    marginBottom: 20,
+  headerContainer: {
+    width: "100%", // Pastikan header selebar layar
+    paddingTop: 0, // Menghapus padding yang tidak diinginkan
+    marginBottom: 20, // Menambahkan jarak di bawah header
   },
-  profileImage: { width: 60, height: 60, borderRadius: 30 },
-  profileTextContainer: { marginLeft: 20 },
-  profileName: { fontSize: 18, fontWeight: "bold", color: "#333" },
-  profileStatus: { fontSize: 14, color: "#555", marginTop: 5 },
   chartContainer: {
     backgroundColor: "#fff",
     borderRadius: 10,
