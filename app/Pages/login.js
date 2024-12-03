@@ -16,7 +16,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const BASE_URL = "http://192.168.62.186:8080"; // IP server backend
+  const BASE_URL = "http://192.168.148.186:8080"; // IP server backend
 
   const login = async () => {
     if (!username.trim() || !password.trim()) {
@@ -25,13 +25,14 @@ const Login = () => {
     }
 
     try {
-      const response = await Axios.post(`${BASE_URL}/masuk`, {
-        username,
-        password,
-      });
-
-      // Log respons untuk debugging
-      console.log("Response Data:", response.data);
+      const response = await Axios.post(
+        `${BASE_URL}/masuk`,
+        {
+          username,
+          password,
+        },
+        { withCredentials: true }
+      );
 
       const { success, message, data } = response.data;
 
@@ -39,20 +40,14 @@ const Login = () => {
         Alert.alert("Success", message);
 
         // Redirect berdasarkan role user
-        if (data.role === "guru") {
-          router.push("/Pages/Guru/ListClass");
-        } else if (data.role === "siswa") {
-          router.push("/Pages/Siswa/kelas");
-        } else {
-          Alert.alert("Error", "Role tidak dikenali!");
-        }
+        router.push(
+          data.role === "guru" ? "/Pages/Guru/ListClass" : "/Pages/Siswa/kelas"
+        );
       } else {
         Alert.alert("Error", message);
       }
     } catch (error) {
       console.error("Login Error:", error);
-
-      // Tangani kesalahan lebih spesifik jika ada
       Alert.alert("Error", "Terjadi kesalahan saat login. Coba lagi nanti.");
     }
   };
