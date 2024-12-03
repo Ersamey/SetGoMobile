@@ -16,7 +16,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const BASE_URL = "http://192.168.148.186:8080"; // IP server backend
+  const BASE_URL = "http://192.168.215.151:8080"; // IP server backend
 
   const login = async () => {
     if (!username.trim() || !password.trim()) {

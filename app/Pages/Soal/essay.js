@@ -30,11 +30,9 @@ const Esai = () => {
 
   const soal = [
     {
-      id: "2",
-      gambar: require("../../../assets/images/Image.png"),
-      Soal: "Jelaskan Definisi operasi himpunan",
-      jawaban: "kumpulan objek atau benda yang kemudian dapat didefinisikan dengan jelas", // Jawaban benar
-      is_true: true, // Status jawaban benar
+      id: "3",
+      Soal: "Jelaskan fungsi dari gerbang logika.",
+      jawaban: "Untuk mengubah satu atau beberapa input (masukan) menjadi suatu sinyal output (keluaran) yang bersifat logis berdasarkan sistem bilangan biner yaitu 0 dan 1", // Jawaban benar
     },
   ];
 
@@ -134,7 +132,7 @@ const Esai = () => {
           {isSubmitted && (
             <TouchableOpacity
               style={styles.btnNew}
-              onPress={() => router.push("Pages/Soal/susun")}
+              onPress={() => router.push("Pages/Soal/soal4")}
             >
               <Text style={styles.textBtn}>Selanjutnya</Text>
             </TouchableOpacity>

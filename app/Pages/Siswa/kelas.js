@@ -17,7 +17,7 @@ import { useRouter } from "expo-router";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import BottomNavbar from "../Layout/BottomNavbar";
 
-const BASE_URL = "http://192.168.148.186:8080";
+const BASE_URL = "http://192.168.215.151:8080";
 
 const Siswa = () => {
   const [kelas, setKelas] = useState([]);
