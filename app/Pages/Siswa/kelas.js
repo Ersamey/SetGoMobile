@@ -191,9 +191,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   btnNew: {
-    marginTop: 'auto',
+    marginTop: "auto",
     backgroundColor: "#fff",
     paddingBottom: 10,
+    marginBottom: 65,
   },
   clssName: {
     fontWeight: "bold",
