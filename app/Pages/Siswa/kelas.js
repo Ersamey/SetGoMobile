@@ -15,6 +15,7 @@ import HeaderProfile from "../Layout/header";
 import axios from "axios";
 import { useRouter } from "expo-router";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import BottomNavbar from "../Layout/BottomNavbar";
 
 const BASE_URL = "http://192.168.148.186:8080";
 
@@ -163,6 +164,9 @@ const Siswa = () => {
           <Text style={styles.textBtn}>Join New Class</Text>
         </TouchableOpacity>
       </View>
+
+      {/* Bottom Navbar */}
+      <BottomNavbar />
     </View>
   );
 };
@@ -171,7 +175,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
-    marginBottom: 100,
   },
   btnJoin: {
     color: "#661FF8",
@@ -188,9 +191,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   btnNew: {
-    position: "absolute",
-    bottom: 0,
-    width: "100%",
+    marginTop: 'auto',
     backgroundColor: "#fff",
     paddingBottom: 10,
   },
