@@ -30,9 +30,9 @@ const PilihanGanda = () => {
       id: "2",
       Soal: "Manakah yang merupakan jenis-jenis gerbang logika?",
       pilihan: [
-        { id: "a", text: "AND, OR, NOT, NAND, XOR, X-NOR", correct: true},
+        { id: "a", text: "AND, OR, NOT, NAND, XOR, X-NOR", correct: true },
         { id: "b", text: "Input, Output, Proses, NAND, NOR", correct: false },
-        { id: "c", text: "Linear, Non-linear, XOR, X-NOR", correct: false},
+        { id: "c", text: "Linear, Non-linear, XOR, X-NOR", correct: false },
         { id: "d", text: "True, False, AND, NOR, XOR", correct: false },
       ],
     },
@@ -70,61 +70,58 @@ const PilihanGanda = () => {
         >
           <Text style={styles.textBtn}>Kembali ke Materi</Text>
         </TouchableOpacity>
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <View style={styles.judul}>
-            <Text style={styles.title}>{materi[0].title}</Text>
-            <Text style={styles.level}>Soal {soal[0].id}</Text>
-          </View>
-          <View style={styles.board}>
-            <Image source={soal[0].gambar} style={styles.classImage} />
-            <Text style={styles.soal}>{soal[0].Soal}</Text>
-          </View>
-          <FlatList
-            data={soal[0].pilihan}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() => handleAnswerPress(item)}
-                style={[
-                  styles.pilihan,
-                  selectedAnswer === item.id &&
-                    !isSubmitted && {
-                      backgroundColor: "lightgray", // Memberikan warna lebih gelap saat dipilih
-                    },
-                  selectedAnswer === item.id &&
-                    isSubmitted && {
-                      backgroundColor: item.correct ? "lightgreen" : "salmon", // Memberikan warna saat sudah disubmit
-                    },
-                ]}
-              >
-                <Text style={styles.pilihanText}>{item.text}</Text>
-              </TouchableOpacity>
-            )}
-            contentContainerStyle={styles.listContainer}
-          />
-          {!isSubmitted && (
-            <TouchableOpacity style={styles.btnNext} onPress={handleSubmit}>
-              <Text style={styles.textBtn}>Submit</Text>
+        <View style={styles.judul}>
+          <Text style={styles.title}>{materi[0].title}</Text>
+          <Text style={styles.level}>Soal {soal[0].id}</Text>
+        </View>
+        <View style={styles.board}>
+          <Text style={styles.soal}>{soal[0].Soal}</Text>
+        </View>
+        <FlatList
+          data={soal[0].pilihan}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => handleAnswerPress(item)}
+              style={[
+                styles.pilihan,
+                selectedAnswer === item.id &&
+                  !isSubmitted && {
+                    backgroundColor: "lightgray", // Memberikan warna lebih gelap saat dipilih
+                  },
+                selectedAnswer === item.id &&
+                  isSubmitted && {
+                    backgroundColor: item.correct ? "lightgreen" : "salmon", // Memberikan warna saat sudah disubmit
+                  },
+              ]}
+            >
+              <Text style={styles.pilihanText}>{item.text}</Text>
             </TouchableOpacity>
           )}
-          {isSubmitted && (
-            <View style={styles.result}>
-              <Text style={styles.resultText}>
-                {soal[0].pilihan.find((item) => item.id === selectedAnswer)
-                  .correct
-                  ? "Jawaban Anda Benar!"
-                  : `Jawaban Anda Salah. Jawaban yang benar adalah ${
-                      soal[0].pilihan.find((item) => item.correct).text
-                    }.`}
-              </Text>
-            </View>
-          )}
-          {isNextEnabled && (
-            <TouchableOpacity style={styles.btnNext} onPress={handleNext}>
-              <Text style={styles.textBtn}>Selanjutnya</Text>
-            </TouchableOpacity>
-          )}
-        </ScrollView>
+          contentContainerStyle={styles.listContainer}
+        />
+        {!isSubmitted && (
+          <TouchableOpacity style={styles.btnNext} onPress={handleSubmit}>
+            <Text style={styles.textBtn}>Submit</Text>
+          </TouchableOpacity>
+        )}
+        {isSubmitted && (
+          <View style={styles.result}>
+            <Text style={styles.resultText}>
+              {soal[0].pilihan.find((item) => item.id === selectedAnswer)
+                .correct
+                ? "Jawaban Anda Benar!"
+                : `Jawaban Anda Salah. Jawaban yang benar adalah ${
+                    soal[0].pilihan.find((item) => item.correct).text
+                  }.`}
+            </Text>
+          </View>
+        )}
+        {isNextEnabled && (
+          <TouchableOpacity style={styles.btnNext} onPress={handleNext}>
+            <Text style={styles.textBtn}>Selanjutnya</Text>
+          </TouchableOpacity>
+        )}
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -141,9 +138,11 @@ const styles = StyleSheet.create({
   },
   board: {
     backgroundColor: "lightblue",
-    padding: 10,
+    padding: 20, // Meningkatkan padding agar lebih luas
     margin: 20,
     borderRadius: 10,
+    alignItems: "center", // Mengatur teks agar berada di tengah
+    justifyContent: "center", // Menjaga konten tetap berada di tengah
   },
   judul: {
     backgroundColor: "white",
@@ -165,15 +164,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#666",
     marginHorizontal: 10,
-    marginTop: -30,
-    textAlign: "justify",
-  },
-  classImage: {
-    width: "100%",
-    height: 200,
-    resizeMode: "contain",
-    borderRadius: 10,
-    marginTop: -17,
+    textAlign: "center", // Mengatur agar teks berada di tengah
   },
   pilihan: {
     backgroundColor: "white",
