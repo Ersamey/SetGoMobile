@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,34 +7,48 @@ import {
   StatusBar,
   Image,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import HeaderProfile from "../Layout/header";
+import axios from "axios";
+
+const BASE_URL = "http://192.168.148.186:8080"; // URL yang benar untuk API
 
 const ListKelas = () => {
+  const [kelas, setKelas] = useState([]); // Menyimpan data kelas
   const router = useRouter();
 
-  const DATA = [
-    {
-      id: "1",
-      title: "Kelas Matematika",
-      description: "Kelas ini membahas materi matematika dasar dan lanjutan.",
-    },
-    {
-      id: "2",
-      title: "Kelas Fisika",
-      description: "Kelas ini membahas dasar-dasar fisika dan konsep lanjutan.",
-    },
-  ];
+  // Fungsi untuk mengambil kelas yang diajarkan oleh guru
+  const fetchKelas = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/kelasGuru`, {
+        withCredentials: true, // Mengirim cookie jika diperlukan
+      });
+      if (response.data.success) {
+        setKelas(response.data.data); // Menyimpan data kelas ke state
+      } else {
+        Alert.alert("Error", response.data.message || "Failed to fetch kelas.");
+      }
+    } catch (error) {
+      console.error("Error fetching kelas:", error);
+      Alert.alert("Error", "Could not fetch kelas. Please try again.");
+    }
+  };
+
+  // Panggil fetchKelas saat pertama kali komponen dimuat
+  useEffect(() => {
+    fetchKelas();
+  }, []);
 
   // Komponen item kelas
-  const Item = ({ title, description, id }) => (
+  const Item = ({ nama_kelas, guru, id_kelas }) => (
     <TouchableOpacity
       onPress={() =>
         router.push({
           pathname: "/Pages/Guru/Class",
-          params: { className: title, id },
+          params: { className: nama_kelas, id: id_kelas },
         })
       }
     >
@@ -44,8 +58,8 @@ const ListKelas = () => {
           style={styles.classImage}
           resizeMode="cover"
         />
-        <Text style={styles.className}>{title}</Text>
-        <Text style={styles.classDescription}>{description}</Text>
+        <Text style={styles.className}>{nama_kelas}</Text>
+        <Text style={styles.classDescription}>{guru}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -55,17 +69,17 @@ const ListKelas = () => {
       <HeaderProfile />
       <SafeAreaProvider contentContainerStyle={{ paddingBottom: 100 }}>
         <SafeAreaView style={styles.container}>
-          {/* Daftar Kelas yang Dibuat oleh Guru */}
+          {/* Daftar Kelas yang Diajar oleh Guru */}
           <FlatList
-            data={DATA}
+            data={kelas} // Menampilkan data kelas yang telah diambil
             renderItem={({ item }) => (
               <Item
-                title={item.title}
-                description={item.description}
-                id={item.id}
+                nama_kelas={item.nama_kelas}
+                guru={item.guru}
+                id_kelas={item.id_kelas} // Menggunakan id_kelas untuk rute
               />
             )}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.id_kelas.toString()} // Menggunakan id_kelas sebagai key
           />
           {/* Tombol untuk Menambahkan Kelas Baru */}
           <View style={styles.newClassButtonContainer}>
@@ -114,7 +128,6 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   button: {
-    // Sesuaikan nama menjadi `button` bukan `Button`
     backgroundColor: "#3498db", // Mengatur warna latar belakang tombol
     paddingVertical: 12, // Mengatur tinggi tombol
     paddingHorizontal: 24, // Mengatur lebar tombol
