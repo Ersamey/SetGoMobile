@@ -14,7 +14,7 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import HeaderProfile from "../Layout/header";
 import axios from "axios";
 
-const BASE_URL = "http://192.168.148.186:8080"; // URL yang benar untuk API
+const BASE_URL = "http://192.168.88.151:8080"; // URL yang benar untuk API
 
 const ListKelas = () => {
   const [kelas, setKelas] = useState([]); // Menyimpan data kelas
@@ -47,7 +47,7 @@ const ListKelas = () => {
     <TouchableOpacity
       onPress={() =>
         router.push({
-          pathname: "/Pages/Guru/Class",
+          pathname: "/Pages/guru/Class",
           params: { className: nama_kelas, id: id_kelas },
         })
       }
@@ -85,7 +85,7 @@ const ListKelas = () => {
           <View style={styles.newClassButtonContainer}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => router.push("Pages/Guru/CreateClass")}
+              onPress={() => router.push("Pages/guru/CreateClass")}
             >
               <Text style={styles.buttonText}>New Class</Text>
             </TouchableOpacity>

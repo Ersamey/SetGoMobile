@@ -30,9 +30,9 @@ const PilihanGanda = () => {
       id: "1",
       Soal: "Pada operasi logika NAND, kapan output akan bernilai false?",
       pilihan: [
-        { id: "a", text: "Jika salah satu input bernilai tru", correct: false},
+        { id: "a", text: "Jika salah satu input bernilai true", correct: false},
         { id: "b", text: "Jika kedua input bernilai false", correct: false },
-        { id: "c", text: "Jika kedua input bernilai tru", correct: true},
+        { id: "c", text: "Jika kedua input bernilai true", correct: true},
         { id: "d", text: "Jika salah satu input bernilai false", correct: false },
       ],
     },
