@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { useRouter } from 'expo-router'; // Pastikan import useRouter
 
 export default function App() {
+  const router = useRouter(); // Mendapatkan router untuk navigasi
   const [currentScreen, setCurrentScreen] = useState("Class"); // Menyimpan layar aktif
-  const [className, setClassName] = useState("Matematika"); // Contoh data kelas
+  const [className, setClassName] = useState("Informatika XI PPLG 1"); // Contoh data kelas
 
   const renderScreen = () => {
     switch (currentScreen) {
@@ -17,7 +19,7 @@ export default function App() {
             {/* Tombol menuju Daftar Siswa */}
             <TouchableOpacity
               style={styles.optionButton}
-              onPress={() => setCurrentScreen("ListSiswa")} // Nama layar untuk Daftar Siswa
+              onPress={() => router.push(`/Pages/guru/ListSiswa`)} // Navigasi ke Daftar Siswa
             >
               <Text style={styles.optionText}>Daftar Siswa</Text>
               <Text style={styles.arrow}>›</Text>
@@ -26,34 +28,10 @@ export default function App() {
             {/* Tombol menuju Materi Pembelajaran */}
             <TouchableOpacity
               style={styles.optionButton}
-              onPress={() => setCurrentScreen("Detail")} // Nama layar untuk Materi Pembelajaran
+              onPress={() => router.push('/Pages/Siswa/detail')} // Navigasi ke Materi Pembelajaran
             >
               <Text style={styles.optionText}>Materi Pembelajaran</Text>
               <Text style={styles.arrow}>›</Text>
-            </TouchableOpacity>
-          </View>
-        );
-      case "ListSiswa":
-        return (
-          <View style={styles.container}>
-            <Text style={styles.title}>Daftar Siswa</Text>
-            <TouchableOpacity
-              style={styles.optionButton}
-              onPress={() => setCurrentScreen("Class")} // Kembali ke halaman Class
-            >
-              <Text style={styles.optionText}>Kembali</Text>
-            </TouchableOpacity>
-          </View>
-        );
-      case "Detail":
-        return (
-          <View style={styles.container}>
-            <Text style={styles.title}>Materi Pembelajaran</Text>
-            <TouchableOpacity
-              style={styles.optionButton}
-              onPress={() => setCurrentScreen("Class")} // Kembali ke halaman Class
-            >
-              <Text style={styles.optionText}>Kembali</Text>
             </TouchableOpacity>
           </View>
         );
