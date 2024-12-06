@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,13 +6,9 @@ import {
   StyleSheet,
   FlatList,
 } from "react-native";
-import { useRoute, useNavigation } from "@react-navigation/native";
 
 export default function ListSiswa() {
-  const route = useRoute();
-  const navigation = useNavigation();
-  const [className, setClassName] = useState("");
-
+  // Contoh data siswa
   const DATA = [
     { id: "1", nama: "Ersa Meilia" },
     { id: "2", nama: "Siti Nuraeni" },
@@ -36,29 +32,19 @@ export default function ListSiswa() {
     { id: "20", nama: "Rizki Ramadhan" },
   ];
 
-  useEffect(() => {
-    if (route.params?.className) {
-      setClassName(route.params.className);
-    }
-  }, [route.params?.className]);
-
+  // Render setiap item (siswa) dalam daftar
   const renderItem = ({ item }) => (
-    <TouchableOpacity
-      style={styles.item}
-      onPress={() => navigation.navigate("DashboardSiswa", { nama: item.nama })}
-    >
+    <TouchableOpacity style={styles.item}>
       <View style={styles.itemContent}>
         <Text style={styles.itemText}>{item.nama}</Text>
-        <Text style={styles.arrow}>›</Text>
       </View>
     </TouchableOpacity>
   );
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        Daftar Siswa Kelas {className || "Tidak Ditemukan"}
-      </Text>
+      <Text style={styles.title}>Daftar Siswa</Text>
+      {/* Menampilkan daftar siswa */}
       <FlatList
         data={DATA}
         renderItem={renderItem}
@@ -81,7 +67,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   item: {
-    flexDirection: "row", // Menyusun secara horizontal
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     padding: 15,
@@ -90,17 +76,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   itemContent: {
-    flex: 1, // Membuat View mengambil ruang penuh
-    flexDirection: "row", // Menyusun teks dan ikon secara horizontal
-    justifyContent: "space-between", // Menyebarkan teks dan panah
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
   },
   itemText: {
     fontSize: 16,
-    color: "#333",
-  },
-  arrow: {
-    fontSize: 20,
     color: "#333",
   },
 });

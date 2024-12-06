@@ -1,45 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { useRoute, useNavigation } from "@react-navigation/native";
+import { useRouter } from 'expo-router'; // Pastikan import useRouter
 
-export default function Class() {
-  const route = useRoute(); // Dapatkan parameter dari navigasi
-  const navigation = useNavigation(); // Untuk navigasi lanjut
-  const [className, setClassName] = useState("");
+export default function App() {
+  const router = useRouter(); // Mendapatkan router untuk navigasi
+  const [currentScreen, setCurrentScreen] = useState("Class"); // Menyimpan layar aktif
+  const [className, setClassName] = useState("Informatika XI PPLG 1"); // Contoh data kelas
 
-  useEffect(() => {
-    // Tangkap className dari parameter
-    if (route.params?.className) {
-      setClassName(route.params.className);
+  const renderScreen = () => {
+    switch (currentScreen) {
+      case "Class":
+        return (
+          <View style={styles.container}>
+            <Text style={styles.title}>
+              {className ? `Kelas: ${className}` : "Pilih Kelas"}
+            </Text>
+
+            {/* Tombol menuju Daftar Siswa */}
+            <TouchableOpacity
+              style={styles.optionButton}
+              onPress={() => router.push(`/Pages/guru/ListSiswa`)} // Navigasi ke Daftar Siswa
+            >
+              <Text style={styles.optionText}>Daftar Siswa</Text>
+              <Text style={styles.arrow}>›</Text>
+            </TouchableOpacity>
+
+            {/* Tombol menuju Materi Pembelajaran */}
+            <TouchableOpacity
+              style={styles.optionButton}
+              onPress={() => router.push('/Pages/Siswa/detail')} // Navigasi ke Materi Pembelajaran
+            >
+              <Text style={styles.optionText}>Materi Pembelajaran</Text>
+              <Text style={styles.arrow}>›</Text>
+            </TouchableOpacity>
+          </View>
+        );
+      default:
+        return <Text>Halaman tidak ditemukan</Text>;
     }
-  }, [route.params?.className]);
+  };
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>
-        {className || "Nama Kelas Tidak Ditemukan"}
-      </Text>
-      {/* Tombol Navigasi */}
-      <TouchableOpacity
-        style={styles.optionButton}
-        onPress={() =>
-          navigation.navigate("Pages/Guru/ListSiswa", { className })
-        }
-      >
-        <Text style={styles.optionText}>Daftar Siswa</Text>
-        <Text style={styles.arrow}>›</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.optionButton}
-        onPress={() => navigation.navigate("Pages/Siswa/detail", { className })}
-      >
-        <Text style={styles.optionText}>Materi Pembelajaran</Text>
-        <Text style={styles.arrow}>›</Text>
-      </TouchableOpacity>
-    </View>
-  );
+  return <>{renderScreen()}</>;
 }
+
 
 const styles = StyleSheet.create({
   container: {

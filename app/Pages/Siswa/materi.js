@@ -7,6 +7,7 @@ import {
   StatusBar,
   Image,
   TouchableOpacity,
+  Linking
 } from "react-native";
 import HeaderProfile from "../Layout/header";
 import { useRouter } from "expo-router";
@@ -16,23 +17,31 @@ const Materi = () => {
   const router = useRouter();
 
   const DATA = {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "Materi 1",
-    teacher: "Ersa Meilia",
-    level: "Level 1",
-    description:
-      "Deskripsi Materi 1 lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
-  };
+      id: "1",
+      title: "Materi 1",
+      teacher: "Ersa Meilia",
+      level: "Level 1",
+      description:
+        "Gerbang logika adalah blok dasar dalam elektronika digital yang mengoperasikan satu atau lebih input biner dan menghasilkan output biner. Ketika gerbang logika dianalisis dalam bentuk himpunan, kita memodelkan operasi logika sebagai operasi pada himpunan.",
+      materi:"https://drive.google.com/file/d/1y3_dVcj0fNMiZY9WhPExURrxJf7UADHo/view?usp=sharing"
+      };
 
+  const openMateri = () => {
+        Linking.openURL(DATA.materi);
+      };
+   
   return (
     <View style={styles.container}>
       <HeaderProfile />
       <Text style={styles.clssName}>{DATA.title}</Text>
+      <Text style={styles.level}>Silahkan akses materi, dengan klik gambar yang ada dibawah!</Text>
       <View style={styles.class}>
-        <Image
-          source={require("../../../assets/images/Image.png")} // Assuming image is in the correct path
-          style={styles.classImage}
-        />
+      <TouchableOpacity onPress={openMateri}>
+          <Image
+            source={{ uri: "https://img.youtube.com/vi/krAvJ6TidZM/0.jpg" }} // Gambar placeholder untuk tombol video
+            style={styles.classImage}
+          />
+        </TouchableOpacity>
         <Text style={styles.teacherName}>{DATA.teacher}</Text>
         <Text style={styles.level}>{DATA.level}</Text>
         <Text style={styles.description}>{DATA.description}</Text>
@@ -89,9 +98,10 @@ const styles = StyleSheet.create({
   },
   classImage: {
     width: 340,
-    height: 100,
+    height: 180,
     borderRadius: 10,
     marginBottom: 10,
+    resizeMode: 'cover'
   },
   button: {
     backgroundColor: "#661FF8",

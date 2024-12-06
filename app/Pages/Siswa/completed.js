@@ -1,97 +1,173 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
 import { ProgressChart } from 'react-native-chart-kit';
+import BottomNavbar from '../Layout/BottomNavbar'; // Import BottomNavbar
 
 const screenWidth = Dimensions.get('window').width;
 
 const Completed = () => {
   // Data untuk Progress
-  const progress1 = 0.75; // 75% untuk Materi Pemrograman
-  const progress2 = 0.50; // 50% untuk Materi Basis Data
+  const progress1 = 0.75; // 75% untuk level 1
+  const progress2 = 0.50; // 50% untuk level 2
+  const progress3 = 0.48; // 50% untuk level 3
+  const progress4 = 0.22; // 50% untuk level 4
 
   return (
     <View style={styles.container}>
-      {/* Outer box untuk profil */}
-      <View style={styles.profileBox}>
-        <Image
-          source={require("../../../assets/images/ecamey.jpg")}
-          style={styles.profileImage}
-        />
-        <View style={styles.profileTextContainer}>
-          <Text style={styles.profileName}>Ersa Meilia</Text>
-          <Text style={styles.profileStatus}>+ 0 Points</Text>
-        </View>
-      </View>
-
-      {/* Outer box untuk membungkus teks dan dua box progress */}
-      <View style={styles.outerBox}>
-        {/* Menambahkan teks di atas dua kotak progress */}
-        <Text style={styles.sectionTitle}>Completed Task</Text>
-
-        {/* Kotak pertama: Materi Pemrograman */}
-        <View style={styles.box}>
-          <View style={styles.textContainer}>
-            <Text style={styles.title}>Judul Materi 1</Text>
-            <Text style={styles.level}>Level 1</Text>
-          </View>
-          <View style={styles.progressContainer}>
-            <ProgressChart
-              data={{
-                labels: ['Task'], // Opsional
-                data: [progress1], // Progress 75% (0.75)
-              }}
-              width={70} // Sesuaikan dengan diameter lingkaran
-              height={60} // Sesuaikan dengan diameter lingkaran
-              strokeWidth={8} // Stroke width of the circle (smaller)
-              radius={25} // Radius of the circle (smaller)
-              chartConfig={{
-                backgroundGradientFrom: 'transparent', // Tidak ada background putih
-                backgroundGradientTo: 'transparent', // Tidak ada background putih
-                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // Warna chart
-                labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`, // Warna label
-              }}
-              hideLegend={true} // Menyembunyikan legend
-              style={{
-                marginVertical: 8,
-              }}
-            />
-            {/* Teks di tengah circle */}
-            <Text style={styles.progressText}>{progress1 * 100}%</Text>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {/* Outer box untuk profil */}
+        <View style={styles.profileBox}>
+          <Image
+            source={require("../../../assets/images/ecamey.jpg")}
+            style={styles.profileImage}
+          />
+          <View style={styles.profileTextContainer}>
+            <Text style={styles.profileName}>Ersa Meilia</Text>
+            <Text style={styles.profileStatus}>+ 0 Points</Text>
           </View>
         </View>
 
-        {/* Kotak kedua: Materi Basis Data */}
-        <View style={styles.box}>
-          <View style={styles.textContainer}>
-            <Text style={styles.title}>Judul Materi 2</Text>
-            <Text style={styles.level}>Level 2</Text>
+        {/* Outer box untuk membungkus teks dan dua box progress */}
+        <View style={styles.outerBox}>
+          {/* Menambahkan teks di atas dua kotak progress */}
+          <Text style={styles.sectionTitle}>Completed Task</Text>
+
+          {/* Kotak pertama */}
+          <View style={styles.box}>
+            <View style={styles.textContainer}>
+              <Text style={styles.title}>Menganalisis Gerbang Logika dalam Bentuk Himpunan</Text>
+              <Text style={styles.level}>Level 1</Text>
+            </View>
+            <View style={styles.progressContainer}>
+              <ProgressChart
+                data={{
+                  labels: ['Task'], // Opsional
+                  data: [progress1], // Progress 75% (0.75)
+                }}
+                width={70} // Sesuaikan dengan diameter lingkaran
+                height={60} // Sesuaikan dengan diameter lingkaran
+                strokeWidth={8} // Stroke width of the circle (smaller)
+                radius={25} // Radius of the circle (smaller)
+                chartConfig={{
+                  backgroundGradientFrom: '#f3d4fe', // Tidak ada background putih
+                  backgroundGradientTo: '#f3d4fe', // Tidak ada background putih
+                  color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // Warna chart
+                  labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`, // Warna label
+                }}
+                hideLegend={true} // Menyembunyikan legend
+                style={{
+                  marginVertical: 8,
+                  backgroundColor: 'transparent', // Pastikan background chart transparan
+                }}
+              />
+              {/* Teks di tengah circle */}
+              <Text style={styles.progressText}>{progress1 * 100}%</Text>
+            </View>
           </View>
-          <View style={styles.progressContainer}>
-            <ProgressChart
-              data={{
-                labels: ['Task'], // Opsional
-                data: [progress2], // Progress 50% (0.50)
-              }}
-              width={70} // Sesuaikan dengan diameter lingkaran
-              height={60} // Sesuaikan dengan diameter lingkaran
-              strokeWidth={8} // Stroke width of the circle (smaller)
-              radius={25} // Radius of the circle (smaller)
-              chartConfig={{
-                backgroundGradientFrom: 'transparent', // Tidak ada background putih
-                backgroundGradientTo: 'transparent', // Tidak ada background putih
-                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // Warna chart
-                labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`, // Warna label
-              }}
-              hideLegend={true} // Menyembunyikan legend
-              style={{
-                marginVertical: 8,
-              }}
-            />
-            {/* Teks di tengah circle */}
-            <Text style={styles.progressText}>{progress2 * 100}%</Text>
+
+          {/* Kotak kedua*/}
+          <View style={styles.box}>
+            <View style={styles.textContainer}>
+              <Text style={styles.title}>Membandingkan Beberapa Himpunan yang Memodelkan Suatu Operasi Logika</Text>
+              <Text style={styles.level}>Level 2</Text>
+            </View>
+            <View style={styles.progressContainer}>
+              <ProgressChart
+                data={{
+                  labels: ['Task'], // Opsional
+                  data: [progress2], // Progress 50% (0.50)
+                }}
+                width={70} // Sesuaikan dengan diameter lingkaran
+                height={60} // Sesuaikan dengan diameter lingkaran
+                strokeWidth={8} // Stroke width of the circle (smaller)
+                radius={25} // Radius of the circle (smaller)
+                chartConfig={{
+                  backgroundGradientFrom: '#f3d4fe', // Tidak ada background putih
+                  backgroundGradientTo: '#f3d4fe', // Tidak ada background putih
+                  color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // Warna chart
+                  labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`, // Warna label
+                }}
+                hideLegend={true} // Menyembunyikan legend
+                style={{
+                  marginVertical: 8,
+                  backgroundColor: 'transparent', // Pastikan background chart transparan
+                }}
+              />
+              {/* Teks di tengah circle */}
+              <Text style={styles.progressText}>{progress2 * 100}%</Text>
+            </View>
           </View>
+
+          {/* Kotak ketiga*/}
+          <View style={styles.box}>
+            <View style={styles.textContainer}>
+              <Text style={styles.title}>Membandingkan Beberapa Himpunan yang Memodelkan Suatu Operasi Logika (Lanjutan)</Text>
+              <Text style={styles.level}>Level 3</Text>
+            </View>
+            <View style={styles.progressContainer}>
+              <ProgressChart
+                data={{
+                  labels: ['Task'], // Opsional
+                  data: [progress3],
+                }}
+                width={70} // Sesuaikan dengan diameter lingkaran
+                height={60} // Sesuaikan dengan diameter lingkaran
+                strokeWidth={8} // Stroke width of the circle (smaller)
+                radius={25} // Radius of the circle (smaller)
+                chartConfig={{
+                  backgroundGradientFrom: '#f3d4fe', // Tidak ada background putih
+                  backgroundGradientTo: '#f3d4fe', // Tidak ada background putih
+                  color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // Warna chart
+                  labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`, // Warna label
+                }}
+                hideLegend={true} // Menyembunyikan legend
+                style={{
+                  marginVertical: 8,
+                  backgroundColor: 'transparent', // Pastikan background chart transparan
+                }}
+              />
+              {/* Teks di tengah circle */}
+              <Text style={styles.progressText}>{progress3 * 100}%</Text>
+            </View>
+          </View>
+
+          {/* Kotak keempat*/}
+          <View style={styles.box}>
+            <View style={styles.textContainer}>
+              <Text style={styles.title}>Membuat Himpunan untuk Memodelkan Persoalan Logika</Text>
+              <Text style={styles.level}>Level 4</Text>
+            </View>
+            <View style={styles.progressContainer}>
+              <ProgressChart
+                data={{
+                  labels: ['Task'], // Opsional
+                  data: [progress4],
+                }}
+                width={70} // Sesuaikan dengan diameter lingkaran
+                height={60} // Sesuaikan dengan diameter lingkaran
+                strokeWidth={8} // Stroke width of the circle (smaller)
+                radius={25} // Radius of the circle (smaller)
+                chartConfig={{
+                  backgroundGradientFrom: '#f3d4fe', // Tidak ada background putih
+                  backgroundGradientTo: '#f3d4fe', // Tidak ada background putih
+                  color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // Warna chart
+                  labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`, // Warna label
+                }}
+                hideLegend={true} // Menyembunyikan legend
+                style={{
+                  marginVertical: 8,
+                  backgroundColor: 'transparent', // Pastikan background chart transparan
+                }}
+              />
+              {/* Teks di tengah circle */}
+              <Text style={styles.progressText}>{progress4 * 100}%</Text>
+            </View>
+          </View>
+
         </View>
-      </View>
+      </ScrollView>
+      {/* Menambahkan BottomNavbar */}
+      <BottomNavbar /> {/* Posisikan BottomNavbar di bawah konten */}
     </View>
   );
 };
@@ -100,6 +176,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff', // Warna kuning pastel untuk container utama
+  },
+  scrollContainer: {
     paddingVertical: 30, // Menambahkan padding vertikal untuk memberi ruang pada outerBox
     paddingHorizontal: 15, // Mengurangi padding horizontal untuk mengurangi jarak kanan dan kiri
   },

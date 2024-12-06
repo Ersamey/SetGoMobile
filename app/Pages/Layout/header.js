@@ -8,67 +8,63 @@ import {
   ActivityIndicator,
 } from "react-native";
 import Axios from "axios";
+import images from "../imageMapping.js"; // Import file imageMapping.js
 
-const BASE_URL = "http://192.168.62.186:8080";
+const BASE_URL = "http://192.168.88.151:8080";
 
 const HeaderProfile = () => {
-  const [userData, setUserData] = useState(null); // State untuk menyimpan data pengguna
-  const [loading, setLoading] = useState(true); // State untuk memantau proses loading
+  const [user, setUser] = useState(null); // State untuk menyimpan data user
+  const [loading, setLoading] = useState(true); // State untuk loading indikator
 
-  // Fungsi untuk mengambil data pengguna
-  const fetchUserData = async () => {
-    try {
-      const response = await Axios.get(`${BASE_URL}/getUserData`); // Tanpa Authorization
-
-      if (response.data && response.data.success) {
-        setUserData(response.data.data);
-      } else {
-        Alert.alert("Error", "User not logged in or data unavailable.");
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      Alert.alert(
-        "Error",
-        "Failed to fetch user data. Please try again later."
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+  Axios.defaults.withCredentials = true;
 
   useEffect(() => {
-    fetchUserData();
-  }, []);
+    const fetchUserData = async () => {
+      try {
+        const response = await Axios.get(`${BASE_URL}/getUserData`, {
+          withCredentials: true,
+        });
+        console.log("Axios Response:", response);
+        if (response.data.success) {
+          setUser(response.data.data); // Menyimpan data user ke state
+        } else {
+          Alert.alert(
+            "Error",
+            response.data.message || "Failed to fetch user data."
+          );
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        Alert.alert("Error", "Could not fetch user data. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // Render saat data masih loading
+    fetchUserData();
+  }, []); // Dependency array kosong berarti hanya berjalan sekali setelah komponen dipasang
+
   if (loading) {
     return (
-      <View style={styles.profile}>
+      <View style={styles.center}>
         <ActivityIndicator size="large" color="#0000ff" />
-        <Text style={styles.name}>Loading...</Text>
+        <Text>Loading...</Text>
       </View>
     );
   }
 
-  // Render saat data tidak ditemukan
-  if (!userData) {
-    return (
-      <View style={styles.profile}>
-        <Text style={styles.name}>User not found</Text>
-      </View>
-    );
-  }
+  // Mengakses user.image langsung dari state user
+  const imageSource =
+    user && user.image ? images[user.image] : images["default.jpg"];
 
   return (
     <View>
       <View style={styles.profile}>
-        <Image
-          // source={require(`../../../assets/images/${userData.image}`)}
-          source={require(`../../../assets/images/ecamey.jpg`)}
-          style={styles.image}
-        />
+        <Image source={imageSource} style={styles.image} />
         <View style={styles.containerNama}>
-          <Text style={styles.name}>Halo, {userData.full_name}</Text>
+          <Text style={styles.name}>
+            Halo, {user ? user.full_name : "Guest"}
+          </Text>
           <Text style={styles.point}>+ 0 Points</Text>
         </View>
       </View>
